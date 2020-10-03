@@ -1,4 +1,4 @@
-# second_web_server.rb
+# second_web_server
 
 Start Web Server
 
