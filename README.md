@@ -66,4 +66,4 @@ Hello World
 
 ## refs
 
-https://www.youtube.com/watch?v=q0CH1tB7e_o
+[Kaigi on Rails STAY HOME Editon](https://www.youtube.com/watch?v=q0CH1tB7e_o)
