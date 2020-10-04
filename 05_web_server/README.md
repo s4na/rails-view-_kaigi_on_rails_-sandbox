@@ -1,4 +1,4 @@
-# Application Server & Application
+# Web Server & Application
 
 ```
 ruby 05_application_server/application_server.rb
