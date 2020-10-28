@@ -3,7 +3,7 @@
 ```
 ruby 05_application_server/application_server.rb
 Got a connection!
-````
+```
 
 ```
 curl localhost:3000/hello
