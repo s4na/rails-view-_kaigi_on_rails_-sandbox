@@ -1,7 +1,7 @@
 require 'socket'
 
 class MyServer
-  attr_reader :server_socket, :client
+  attr_reader :server_socket, :client, :status
 
   def initialize
     @server_socket = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM, 0)
@@ -10,6 +10,7 @@ class MyServer
     sockaddr = Socket.pack_sockaddr_in(13_500, '127.0.0.1')
     @server_socket.bind(sockaddr)
     @server_socket.listen(5)
+    @status = 'initialize'
   end
 
   def start
@@ -20,6 +21,10 @@ class MyServer
     loop do # loop() automatically catches a StopIteration exception and terminates
       data = @client.recvfrom(1024)[0].chomp
       handle_data(data)
+
+      @status = 'run'
+      p 'MyServer#start loop中'
+      p "MyServer#start @status => #{@status}"
     end
   end
 
