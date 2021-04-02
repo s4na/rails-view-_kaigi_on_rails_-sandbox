@@ -14,10 +14,7 @@ RSpec.describe 'MyServer' do
     # Make sure server has started before doing this.
     @client.send_data(@data)
 
-    p "@server.status => #{@server.status}"
-
     while @server.status != 'run' do
-      p "@server.status => #{@server.status}"
       sleep 1
     end
   end

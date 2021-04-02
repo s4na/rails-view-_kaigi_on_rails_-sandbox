@@ -23,8 +23,6 @@ class MyServer
       handle_data(data)
 
       @status = 'run'
-      p 'MyServer#start loop中'
-      p "MyServer#start @status => #{@status}"
     end
   end
 
