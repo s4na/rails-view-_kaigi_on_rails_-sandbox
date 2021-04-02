@@ -11,7 +11,7 @@ RSpec.describe 'MyServer' do
 
     # Allow server to start, so client doesn't send data
     # to the server before the server creates the socket.
-    sleep 1
+    sleep 2
 
     @client = MyClient.new
     @data = 'hello'
