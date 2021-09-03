@@ -39,9 +39,7 @@ loop do
     p 'response'
     pp response
 
-    status = response[0]
-    headers = response[1]
-    body = response[2]
+    status, headers, body = response
 
     socket.write "HTTP/1.1 #{status} OK\r\n"
 
