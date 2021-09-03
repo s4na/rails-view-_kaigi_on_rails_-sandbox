@@ -1,7 +1,7 @@
 # Web Server & Application
 
 ```
-ruby 05_application_server/application_server.rb
+ruby ./05_web_server/web_server.rb
 Got a connection!
 ```
 
