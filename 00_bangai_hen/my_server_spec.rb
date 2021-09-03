@@ -1,5 +1,7 @@
-require_relative 'my_server.rb'
-require_relative 'my_client.rb'
+# frozen_string_literal: true
+
+require_relative 'my_server'
+require_relative 'my_client'
 
 RSpec.describe 'MyServer' do
   before do
@@ -14,9 +16,7 @@ RSpec.describe 'MyServer' do
     # Make sure server has started before doing this.
     @client.send_data(@data)
 
-    while @server.status != 'run' do
-      sleep 1
-    end
+    sleep 1 while @server.status != 'run'
   end
 
   after do
@@ -29,7 +29,7 @@ RSpec.describe 'MyServer' do
 
   describe '#handle_data' do
     context 'given a string' do
-      it "returns reversed string" do
+      it 'returns reversed string' do
         expect(@server.handle_data(@data)).to eql(@data)
       end
     end
@@ -37,7 +37,7 @@ RSpec.describe 'MyServer' do
 
   describe '- client receives correct response' do
     context 'given a string' do
-      it "returns reversed string" do
+      it 'returns reversed string' do
         expect(@client.recv_data).to eql("#{@data}\n")
       end
     end

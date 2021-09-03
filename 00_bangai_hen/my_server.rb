@@ -4,10 +4,16 @@ class MyServer
   attr_reader :server_socket, :client, :status
 
   def initialize
+    # Socket::AF_INET      => 2
+    # Socket::SOCK_STREAM  => 1
     @server_socket = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM, 0)
+    # Socket::SOL_SOCKET   => 65535
+    # Socket::SO_REUSEADDR => 4
     @server_socket.setsockopt(Socket::SOL_SOCKET, Socket::SO_REUSEADDR, true)
 
-    sockaddr = Socket.pack_sockaddr_in(13_500, '127.0.0.1')
+    port = 13_500
+    host = '127.0.0.1'
+    sockaddr = Socket.pack_sockaddr_in(port, host)
     @server_socket.bind(sockaddr)
     @server_socket.listen(5)
     @status = 'initialize'
