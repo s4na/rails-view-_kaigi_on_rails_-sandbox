@@ -1,0 +1,60 @@
+require 'socket'
+require_relative 'application'
+require_relative 'rack_view_time'
+
+port = 3000
+server = TCPServer.open(port)
+
+loop do
+  # Wait for connection
+  socket = server.accept
+
+  puts 'Got a connection!'
+
+  if match = socket.gets.chomp.match(/^(?<verb>[A-Z]*) (?<path>[^ ]*) (?<ver>.*)$/)
+    # Make a hash with the request information
+    env = {
+      'REQUEST_METHOD' => match[:verb],
+      'PATH_INFO' => match[:path],
+      'HTTP_VERSION' => match[:ver]
+    }
+
+    while line = socket.gets.chomp
+      break if line.bytesize.zero?
+
+      key, value = line.split(': ')
+      env[key] = value
+    end
+
+    # debug
+    p 'env'
+    pp env
+
+    # Call app with request information
+    app = Application.new
+    app = RackViewTime.new(app)
+    response = app.call(env)
+
+    # debug
+    # Application#call の戻り値に含まれていないため、
+    # responseにheadersは含まれていない。
+    p 'response'
+    pp response
+
+    status, headers, body = response
+
+    socket.write "HTTP/1.1 #{status} OK\r\n"
+
+    headers.each do |key, value|
+      socket.write "#{key}: #{value}"
+    end
+
+    socket.write "\r\n"
+
+    p 'body'
+    pp body
+
+    body.each { |part| socket.write part }
+  end
+  socket.close
+end
